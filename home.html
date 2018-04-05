@@ -1,6 +1,7 @@
 <html>
     <header>
         <link rel="stylesheet" href="homeCSS.css">
+        <script type=text/javascript src="frontend_JS.js"></script>
         <title>Travel Agency</title>
     </header>
     <body id="body">
@@ -9,11 +10,50 @@
                 <h2>TRAVEL AGENCY</h2>
             </div>
             <div id="menu">
-                <button class="tablinks" onclick="">Hotels</button>
-                <button class="tablinks" onclick="">Flights</button>
-                <button class="tablinks" onclick="">Cruises</button>
-                <button class="tablinks" onclick="">Cars</button>
-                <button class="tablinks" onclick="">Packages</button>
+                
+                <button onclick="myFunction()" class="dropbtn">Hotels</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Hotel Option 1</a>
+                    <a href="#">Hotel Option 2</a>
+                    <a href="#">Hotel Option 3</a>
+                </div>
+                
+                <button onclick="myFunction()" class="dropbtn">Flights</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Flight Option 1</a>
+                    <a href="#">Flight Option 2</a>
+                    <a href="#">Flight Option 3</a>
+                </div>
+                
+                <button onclick="myFunction()" class="dropbtn">Cruises</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Cruises Option 1</a>
+                    <a href="#">Cruises Option 2</a>
+                    <a href="#">Cruises Option 3</a>
+                </div>
+                
+                <button onclick="myFunction()" class="dropbtn">Cars</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Cars Option 1</a>
+                    <a href="#">Cars Option 2</a>
+                    <a href="#">Cars Option 3</a>
+                </div>
+                
+                <button onclick="myFunction()" class="dropbtn">Packages</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Packages Option 1</a>
+                    <a href="#">Packages Option 2</a>
+                    <a href="#">Packages Option 3</a>
+                </div>
+                
+            </div>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Login</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
             </div>
         </div>
         
