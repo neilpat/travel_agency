@@ -1,7 +1,22 @@
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function myFunction_hotels() {
+    document.getElementById("myDropdown_hotels").classList.toggle("show");
+}
+function myFunction_flights() {
+    document.getElementById("myDropdown_flights").classList.toggle("show");
+}
+function myFunction_cruises() {
+    document.getElementById("myDropdown_cruises").classList.toggle("show");
+}
+function myFunction_cars() {
+    document.getElementById("myDropdown_cars").classList.toggle("show");
+}
+function myFunction_packages() {
+    document.getElementById("myDropdown_packages").classList.toggle("show");
+}
+function myFunction_login() {
+    document.getElementById("myDropdown_login").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it
