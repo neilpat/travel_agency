@@ -1,11 +1,11 @@
 #body{
-    background-color: #ffffcc;
+    background-color: white;
 }
 #title{
     display: inline-block;
     font-style: normal;
     font-family: sans-serif;
-    background-color: #ffff00;
+    background-color: lightblue;
     color: white;
     padding: 15px 32px;
     font-size: 16px;
@@ -80,12 +80,12 @@
 /* Add a black background color to the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: #ffff99;
+    background-color: lightblue;
     margin-top: 30px;
     margin-left: 30px;
     margin-right: 30px;
     padding: 10px 10px 10px 10px;
-    font-family: monospace;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 /* Style the links inside the navigation bar */
@@ -146,6 +146,8 @@
 .suggestions{
     display: block;
     padding: 20px 20px 20px 30px;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 .sugg1{
@@ -154,7 +156,7 @@
     border-color: aqua;
     background-color: #3498DB;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 12px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -170,7 +172,7 @@
     border-color: aqua;
     background-color: #3498DB;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 12px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -186,7 +188,7 @@
     border-color: aqua;
     background-color: #3498DB;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 12px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -202,4 +204,23 @@
 .rt_arrow{
     display: inline-block;
     font-size: 77px;
+}
+.sugg_pic{
+    width: 240px;
+    height: 170px;
+    
+}
+.sugg_info{
+    display: inline-block;
+    float: left;
+    border: 2px solid black;
+    height: 60px;
+    width: 150px;
+}
+.sugg_price{
+    display: inline-block;
+    float: right;
+    border: 2px solid black;
+    height: 60px;
+    width: 80px;
 }
