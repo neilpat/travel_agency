@@ -19,6 +19,14 @@ function myFunction_login() {
     document.getElementById("myDropdown_login").classList.toggle("show");
 }
 
+
+/*login enlarge toggle*/
+function myFunction_enlarge(){
+    ("button").click(function(){
+        (this).next().toggleClass("big")
+    })
+})
+
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {

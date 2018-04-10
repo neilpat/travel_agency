@@ -1,11 +1,11 @@
 #body{
-    background-color: antiquewhite;
+    background-color: #ffffcc;
 }
 #title{
     display: inline-block;
     font-style: normal;
     font-family: sans-serif;
-    background-color: cadetblue;
+    background-color: #ffff00;
     color: white;
     padding: 15px 32px;
     font-size: 16px;
@@ -16,6 +16,10 @@
 }
 #menu{
     display: inline-block
+}
+.logo{
+    width: 140px;
+    height: 70px;
 }
 #titlebar{
 
@@ -42,7 +46,7 @@
     position: relative;
     display: inline-block;
     float: right;
-    top: 10px;
+    top: 28px;
     right: 15px;
 }
 
@@ -76,11 +80,12 @@
 /* Add a black background color to the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: #e9e9e9;
+    background-color: #ffff99;
     margin-top: 30px;
     margin-left: 30px;
     margin-right: 30px;
-    
+    padding: 10px 10px 10px 10px;
+    font-family: monospace;
 }
 
 /* Style the links inside the navigation bar */
@@ -94,26 +99,33 @@
     font-size: 17px;
 }
 
-/* Change the color of links on hover */
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-/* Style the "active" element to highlight the current page */
-.topnav a.active {
-    background-color: #2196F3;
-    color: white;
-}
-
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-    float: right;
+    float: left;
     padding: 6px;
     border: none;
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+    width: 280px;
+}
+.topnav input[type=date] {
+    float: left;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 14px;
+    width: 200px;
+}
+.topnav input[type=submit] {
+    float: left;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 14px;
+    width: 100px;
 }
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
@@ -129,4 +141,23 @@
     .topnav input[type=text] {
         border: 1px solid #ccc;
     }
+}
+
+/*Enlarge Div Upon Click*/
+.login{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: red;
+    color: white;
+    top: 100px;
+    left: 400px;
+    transition: all 1s ;
+    text-align:center;
+        }
+.login_big{
+    width: 300px;
+    height: 400px;
+    top: 50px;
+    left: 350px;
 }
