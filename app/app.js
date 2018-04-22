@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var mysql = require('mysql');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -8,6 +10,23 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+var connection = mysql.createConnection({
+	host     : 'localhost',
+  	user     : 'root',
+  	password : 'root',
+  	database : 'mydb'
+
+})
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+  }
+ 
+  console.log('connected as id ' + connection.threadId);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

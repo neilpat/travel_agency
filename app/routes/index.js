@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const controllerA = require('../controllers/controllerA.js');
+const controllerA = require('../controllers/controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
