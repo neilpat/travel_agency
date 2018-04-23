@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+    <head>
+    <meta charset="UTF-8">
+    <title>Flat HTML5/CSS3 Login Form</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+    <link rel="stylesheet" href="homeCSS.css">
+    </head>
+    
+    <body>
+        <div class="titlebar">
+            <a href="home.html">
+                <div id="title">
+                    <img class="logo" src="logo.png">
+                </div>
+            </a>
+            
+            <div id="menu"> 
+                <a href="hotel.html">
+                <button onclick="myFunction_hotels()" class="dropbtn button is-info">Hotels</button>
+                <div id="myDropdown_hotels" class="dropdown-content">
+                </div>
+                </a>
+                
+                <a href="flight.html">
+                <button onclick="myFunction_flights()" class="dropbtn button is-info">Flights</button>
+                <div id="myDropdown_flights" class="dropdown-content">
+                </div>
+                </a>
+                
+                <a href="cruises.html">
+                <button onclick="myFunction_cruises()" class="dropbtn button is-info">Cruises</button>
+                <div id="myDropdown_cruises" class="dropdown-content">
+                </div>
+                </a>
+                
+                <a href="cars.html">
+                <button onclick="myFunction_cars()" class="dropbtn button is-info">Cars</button>
+                <div id="myDropdown_cars" class="dropdown-content">
+                </div>
+                </a>
+                
+                <a href="packages.html">
+                <button onclick="myFunction_packages()" class="dropbtn button is-info">Packages</button>
+                <div id="myDropdown_packages" class="dropdown-content">
+                </div>
+                </a>
+                
+            </div>
+        </div>
+        <div class="space">
+        
+        </div>
+        <div class="login-page">
+            <div class="form">
+                <form class="register-form">
+                    <input type="text" placeholder="name"/>
+                    <input type="password" placeholder="password"/>
+                    <input type="text" placeholder="email address"/>
+                    <button>create</button>
+                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+                <form class="login-form">
+                    <input type="text" placeholder="username"/>
+                    <input type="password" placeholder="password"/>
+                    <button>login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+            </div>
+        </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script  src="login.js"></script>
+    </body>
+</html>

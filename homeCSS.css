@@ -74,10 +74,22 @@
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
-/* SEARCH BAR*/
+.flight_details{
+    padding: 10px 10px 10px 10px
+}
+.trip_type{
+    display: inline-block;
+    padding-right: 30px;
+}
+.passenger_type{
+    display: inline-block;
+    padding-right: 30px;
+}
+.class_type{
+    display: inline-block;
+}
 
 
-/* Add a black background color to the top navigation bar */
 .topnav {
     overflow: hidden;
     background-color: lightblue;
