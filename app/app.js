@@ -31,8 +31,7 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
-app.get('/home', (req, res, next) =>{
-// /home will have flights 
+app.get('/flights', (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
 
@@ -119,8 +118,6 @@ app.get('/cars', (req, res, next) =>{
 
         var car_obj = new Object();
         car_obj.car = value;
-        let sourcestmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
-
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [value.Location] , (err2, result2) => {
@@ -236,6 +233,64 @@ app.get('/cruises/:id', (req, res, next) =>{
     }
   });
 });
+
+
+app.get('/hotels', (req, res, next) =>{
+  let sql = 'SELECT * FROM mydb.accommodation;';
+  var hotels = new Array();
+
+  connection.query(sql, (err, result) => {
+    if(err){ 
+      next(err);
+    }
+    else{
+      async.forEachOf(result, function(value, key, callback)  {
+
+        var hotel_obj = new Object();
+        hotel_obj.hotel = value;
+
+        let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+        connection.query(stmnt, [value.Location] , (err2, result2) => {
+            if(err){ 
+              callback(err2);
+            }
+            hotel_obj.loc = result2[0];
+            hotels.push(hotel_obj);
+            callback()
+        });
+
+    }, function(err)  {
+
+        res.send(hotels);
+
+      })
+}
+});
+});
+
+app.get('/hotels/:id', (req, res, next) =>{
+  var id = req.params.id;
+  var hotel_obj = new Object();
+  let stmnt = "SELECT * FROM mydb.accommodation WHERE mydb.accommodation.AccommodationID = ?";
+  connection.query(stmnt, [id], (err, result) => {
+     if(err){ 
+      next(err);
+    }
+    else{
+      hotel_obj.car = result[0];
+
+        let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+        connection.query(stmnt, [result[0].Location] , (err2, result2) => {
+            if(err){ 
+              next(err2);
+            }
+            hotel_obj.loc = result2[0];
+            res.send(hotel_obj);
+        });
+    }
+  });
+});
+
 
 
 // view engine setup
