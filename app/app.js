@@ -32,7 +32,7 @@ connection.connect(function(err) {
 });
 
 app.get('/home', (req, res, next) =>{
-// /home will start off by showing flights 
+// /home will have flights 
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
 
@@ -99,14 +99,143 @@ app.get('/flights/:id', (req, res, next) =>{
           next(err3);
           }
         flight_obj.dc = result3[0];
-        console.log(result3);
         res.send(flight_obj);
         });
     }
   });
 });
 
+app.get('/cars', (req, res, next) =>{
+// /cars will have the car rental info 
+  let sql = 'SELECT * FROM mydb.carrental;';
+  var cars = new Array();
 
+  connection.query(sql, (err, result) => {
+    if(err){ 
+      next(err);
+    }
+    else{
+      async.forEachOf(result, function(value, key, callback)  {
+
+        var car_obj = new Object();
+        car_obj.car = value;
+        let sourcestmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+
+
+        let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+        connection.query(stmnt, [value.Location] , (err2, result2) => {
+            if(err){ 
+              callback(err2);
+            }
+            car_obj.loc = result2[0];
+            cars.push(car_obj);
+            callback()
+        });
+
+    }, function(err)  {
+
+        res.send(cars);
+
+      })
+}
+});
+});
+
+app.get('/cars/:id', (req, res, next) =>{
+  var id = req.params.id;
+  var car_obj = new Object();
+  let stmnt = "SELECT * FROM mydb.carrental WHERE mydb.carrental.ConfirmationId = ?";
+  connection.query(stmnt, [id], (err, result) => {
+     if(err){ 
+      next(err);
+    }
+    else{
+      car_obj.car = result[0];
+
+        let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+        connection.query(stmnt, [result[0].Location] , (err2, result2) => {
+            if(err){ 
+              next(err2);
+            }
+            car_obj.loc = result2[0];
+            res.send(car_obj);
+        });
+    }
+  });
+});
+
+app.get('/cruises', (req, res, next) =>{ 
+  let sql = 'SELECT * FROM mydb.cruise;';
+  var cruises = new Array();
+
+  connection.query(sql, (err, result) => {
+    if(err){ 
+      next(err);
+    }
+    else{
+      async.forEachOf(result, function(value, key, callback)  {
+
+        var cruise_obj = new Object();
+        cruise_obj.boat = value;
+        let sourcestmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+
+        connection.query(sourcestmt, [value.SourceLocation] , (err2, result2) => {
+          if (err2) {
+            callback(err2);
+          }
+          else {
+            cruise_obj.sc = result2[0];
+          }
+        });
+
+        let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+        connection.query(deststmt, [value.DestinationLocation] , (err3, result3) => {
+            if(err){ 
+              callback(err3);
+            }
+            cruise_obj.dc = result3[0];
+            cruises.push(cruise_obj);
+            callback()
+        });
+
+    }, function(err)  {
+
+        res.send(cruises);
+
+      })
+}
+});
+});
+
+app.get('/cruises/:id', (req, res, next) =>{
+  var id = req.params.id;
+  var cruise_obj = new Object();
+  let stmnt = "SELECT * FROM mydb.cruise WHERE mydb.cruise.CruiseNumber = ?";
+  connection.query(stmnt, [id], (err, result) => {
+     if(err){ 
+      next(err);
+    }
+    else{
+      cruise_obj.boat = result[0];
+      let sourcestmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+      connection.query(sourcestmt, [result[0].SourceLocation] , (err2, result2) => {
+          if (err2) {
+            next(err2);
+          }
+          cruise_obj.sc = result2[0];
+        });
+
+      let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
+      connection.query(deststmt, [result[0].DestinationLocation] , (err3, result3) => {
+        if(err3){ 
+          next(err3);
+          }
+        cruise_obj.dc = result3[0];
+        res.send(cruise_obj);
+        });
+    }
+  });
+});
 
 
 // view engine setup
