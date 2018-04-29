@@ -9,6 +9,8 @@ import { CruiseComponent } from './cruise/cruise.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { SuggestionsComponent } from './suggestions/suggestions.component';
     CruiseComponent,
     HotelComponent,
     NavbarComponent,
-    SuggestionsComponent
+    SuggestionsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule

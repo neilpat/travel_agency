@@ -1,0 +1,94 @@
+body{
+  font: normal 18px sans-serif;
+  color: #333;
+  background-color: #eee;
+}
+.sugg_format{
+  padding: 20px 20px 20px 20px;
+  background-color: #0c5460;
+}
+.card_format{
+  background-color: whitesmoke;
+  border: 1px white;
+  width: 300px;
+  height: 450px;
+  padding: 10px 10px 10px 10px;
+  display: inline-block;
+}
+.img_format{
+  height: 160px;
+  width: 280px;
+}
+.body-format{
+  padding: 10px 10px 10px 10px;
+}
+.card_highlight:hover{
+  box-shadow: 0 8px 5px lightgreen;
+}
+table{
+  margin-top: 20px;
+  margin-left: 40px;
+  align-items: center;
+  align: center;
+  padding: 20px 20px 20px 20px;
+}
+tr{
+  padding: 20px 20px 20px 20px;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Style the list */
+.price {
+  list-style-type: none;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+/* Add shadows on hover */
+.price:hover {
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+/* Pricing header */
+.price .header {
+  background-color: #111;
+  color: white;
+  font-size: 14px;
+}
+
+/* List items */
+.price li {
+  border-bottom: 1px solid #eee;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Grey list item */
+.price .grey {
+  background-color: #eee;
+  font-size: 12px;
+}
+
+/* The "Sign Up" button */
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* Change the width of the three columns to 100%
+(to stack horizontally on small screens) */
+/* @media only screen and (max-width: 600px) {
+  .columns {
+    width: 100%;
+  }
+} */
