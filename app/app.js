@@ -2,10 +2,12 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var mysql = require('mysql');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var async = require('async');
+var passport = require('passport');
 
 var app = express();
 
@@ -15,13 +17,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 var connection = mysql.createConnection({
 	host     : 'localhost',
   	user     : 'root',
   	password : 'root',
   	database : 'mydb'
 
-})
+});
+
 
 connection.connect(function(err) {
   if (err) {
