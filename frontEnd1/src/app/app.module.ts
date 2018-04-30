@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { FlightComponent } from './flight/flight.component';
@@ -28,6 +29,18 @@ const routes:Routes = [
   {
     path: 'cruises',
     component: CruiseComponent
+  },
+  {
+    path: '',
+    component: FlightComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
 
@@ -45,6 +58,7 @@ const routes:Routes = [
   ],
   imports: [
     RouterModule.forRoot(routes),
+    HttpClientModule,
     BrowserModule
   ],
   providers: [],
