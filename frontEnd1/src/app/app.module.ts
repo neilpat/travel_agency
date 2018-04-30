@@ -26,7 +26,7 @@ const routes:Routes = [
     component: CarComponent
   },
   {
-    path: 'cruise',
+    path: 'cruises',
     component: CruiseComponent
   }
 ];
