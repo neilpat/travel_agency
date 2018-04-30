@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { FlightComponent } from './flight/flight.component';
@@ -12,6 +12,24 @@ import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+const routes:Routes = [
+  {
+    path: 'flights',
+    component: FlightComponent
+  },
+  {
+    path: 'hotels',
+    component: HotelComponent
+  },
+  {
+    path: 'cars',
+    component: CarComponent
+  },
+  {
+    path: 'cruise',
+    component: CruiseComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -26,6 +44,7 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule
   ],
   providers: [],
