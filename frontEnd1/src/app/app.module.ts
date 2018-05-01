@@ -12,6 +12,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FlightDetailComponent } from './flight-detail/flight-detail.component';
+import { CarDetailComponent } from './car-detail/car-detail.component';
+import { CruiseDetailComponent } from './cruise-detail/cruise-detail.component';
+import { HotelDetailComponent } from './hotel-detail/hotel-detail.component';
 
 const routes:Routes = [
   {
@@ -54,7 +58,11 @@ const routes:Routes = [
     NavbarComponent,
     SuggestionsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FlightDetailComponent,
+    CarDetailComponent,
+    CruiseDetailComponent,
+    HotelDetailComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
