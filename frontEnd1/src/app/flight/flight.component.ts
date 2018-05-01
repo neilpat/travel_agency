@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-flight',
@@ -9,16 +10,16 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 export class FlightComponent implements OnInit {
   suggestions;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private route : ActivatedRoute) { }
 
   ngOnInit() {
-    this.httpClient.get('https://my-json-server.typicode.com/nihadhn2/hello-world/flights')
+    this.httpClient.get('http://localhost:3000/flights')
     .subscribe(
       (data:any) =>{
         console.log(data);
         this.suggestions = data;
       }
-    )
+    );
   }
 
 }

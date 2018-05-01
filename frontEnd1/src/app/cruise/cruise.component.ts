@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cruise',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cruise.component.css']
 })
 export class CruiseComponent implements OnInit {
-
-  constructor() { }
+  cruises;
+  constructor(private httpClient: HttpClient, private route : ActivatedRoute) { }
 
   ngOnInit() {
+    this.httpClient.get('http://localhost:3000/cruises')
+    .subscribe(
+      (data:any) =>{
+        console.log(data);
+        this.cruises = data;
+      }
+    );
   }
 
 }

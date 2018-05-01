@@ -21,20 +21,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var connection = mysql.createConnection({
-	host     : 'localhost',
+		host     : 'localhost',
   	user     : 'root',
   	password : 'root',
   	database : 'mydb'
 
 });
 
-
 var cors_config = {
-
 	origin : 'http://localhost:4200',
 	methods: 'GET,PUT,POST,DELETE',
 	credentials: true
 };
+
 app.use(cors(cors_config));
 
 app.options('*', cors(cors_config));
@@ -52,7 +51,7 @@ app.get('/flights', (req, res, next) =>{
   var flights = new Array();
 
   connection.query(sql, (err, result) => {
-    if(err){ 
+    if(err){
       next(err);
     }
     else{
@@ -73,7 +72,7 @@ app.get('/flights', (req, res, next) =>{
 
         let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(deststmt, [value.DestinationLocation] , (err3, result3) => {
-            if(err){ 
+            if(err){
               callback(err3);
             }
             flight_obj.dc = result3[0];
@@ -95,7 +94,7 @@ app.get('/flights/:id', (req, res, next) =>{
   var flight_obj = new Object();
   let stmnt = "SELECT * FROM mydb.flight WHERE mydb.flight.FlightNumber = ?";
   connection.query(stmnt, [id], (err, result) => {
-     if(err){ 
+     if(err){
       next(err);
     }
     else{
@@ -110,7 +109,7 @@ app.get('/flights/:id', (req, res, next) =>{
 
       let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
       connection.query(deststmt, [result[0].DestinationLocation] , (err3, result3) => {
-        if(err3){ 
+        if(err3){
           next(err3);
           }
         flight_obj.dc = result3[0];
@@ -121,12 +120,12 @@ app.get('/flights/:id', (req, res, next) =>{
 });
 
 app.get('/cars', (req, res, next) =>{
-// /cars will have the car rental info 
+// /cars will have the car rental info
   let sql = 'SELECT * FROM mydb.carrental;';
   var cars = new Array();
 
   connection.query(sql, (err, result) => {
-    if(err){ 
+    if(err){
       next(err);
     }
     else{
@@ -137,7 +136,7 @@ app.get('/cars', (req, res, next) =>{
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [value.Location] , (err2, result2) => {
-            if(err){ 
+            if(err){
               callback(err2);
             }
             car_obj.loc = result2[0];
@@ -159,7 +158,7 @@ app.get('/cars/:id', (req, res, next) =>{
   var car_obj = new Object();
   let stmnt = "SELECT * FROM mydb.carrental WHERE mydb.carrental.ConfirmationId = ?";
   connection.query(stmnt, [id], (err, result) => {
-     if(err){ 
+     if(err){
       next(err);
     }
     else{
@@ -167,7 +166,7 @@ app.get('/cars/:id', (req, res, next) =>{
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [result[0].Location] , (err2, result2) => {
-            if(err){ 
+            if(err){
               next(err2);
             }
             car_obj.loc = result2[0];
@@ -177,12 +176,12 @@ app.get('/cars/:id', (req, res, next) =>{
   });
 });
 
-app.get('/cruises', (req, res, next) =>{ 
+app.get('/cruises', (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.cruise;';
   var cruises = new Array();
 
   connection.query(sql, (err, result) => {
-    if(err){ 
+    if(err){
       next(err);
     }
     else{
@@ -203,7 +202,7 @@ app.get('/cruises', (req, res, next) =>{
 
         let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(deststmt, [value.DestinationLocation] , (err3, result3) => {
-            if(err){ 
+            if(err){
               callback(err3);
             }
             cruise_obj.dc = result3[0];
@@ -225,7 +224,7 @@ app.get('/cruises/:id', (req, res, next) =>{
   var cruise_obj = new Object();
   let stmnt = "SELECT * FROM mydb.cruise WHERE mydb.cruise.CruiseNumber = ?";
   connection.query(stmnt, [id], (err, result) => {
-     if(err){ 
+     if(err){
       next(err);
     }
     else{
@@ -240,7 +239,7 @@ app.get('/cruises/:id', (req, res, next) =>{
 
       let deststmt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
       connection.query(deststmt, [result[0].DestinationLocation] , (err3, result3) => {
-        if(err3){ 
+        if(err3){
           next(err3);
           }
         cruise_obj.dc = result3[0];
@@ -256,7 +255,7 @@ app.get('/hotels', (req, res, next) =>{
   var hotels = new Array();
 
   connection.query(sql, (err, result) => {
-    if(err){ 
+    if(err){
       next(err);
     }
     else{
@@ -267,7 +266,7 @@ app.get('/hotels', (req, res, next) =>{
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [value.Location] , (err2, result2) => {
-            if(err){ 
+            if(err){
               callback(err2);
             }
             hotel_obj.loc = result2[0];
@@ -289,7 +288,7 @@ app.get('/hotels/:id', (req, res, next) =>{
   var hotel_obj = new Object();
   let stmnt = "SELECT * FROM mydb.accommodation WHERE mydb.accommodation.AccommodationID = ?";
   connection.query(stmnt, [id], (err, result) => {
-     if(err){ 
+     if(err){
       next(err);
     }
     else{
@@ -297,7 +296,7 @@ app.get('/hotels/:id', (req, res, next) =>{
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [result[0].Location] , (err2, result2) => {
-            if(err){ 
+            if(err){
               next(err2);
             }
             hotel_obj.loc = result2[0];

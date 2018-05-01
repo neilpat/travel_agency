@@ -23,26 +23,13 @@
       <div class="card-body">
         <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
         <p class="card-text">{{flight.flight.FlightCarrier}}</p>
-        <p class="card-text">{{flight.sc[0].CityName}} {{flight.sc[0].State}} {{flight.sc[0].Country}}</p>
-        <p class="card-text">{{flight.dc[0].CityName}} {{flight.dc[0].State}} {{flight.dc[0].Country}}</p>
+        <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
+        <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
         <a href="#" class="btn btn-primary">View Details</a>
       </div>
       <div class="card-footer text-muted">
       </div>
     </div>
-    <!-- <div class="card text-center card_highlight center">
-      <div class="card-header">
-        Featured
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-      <div class="card-footer text-muted">
-        2 days ago
-      </div>
-    </div> -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
