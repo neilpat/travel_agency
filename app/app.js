@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var async = require('async');
 var passport = require('passport');
-
+var cors = require('cors');
 var app = express();
 
 app.use(bodyParser.json()); // support json encoded bodies
@@ -28,6 +28,16 @@ var connection = mysql.createConnection({
 
 });
 
+
+var cors_config = {
+
+	origin : 'http://localhost:4200',
+	methods: 'GET,PUT,POST,DELETE',
+	credentials: true
+};
+app.use(cors(cors_config));
+
+app.options('*', cors(cors_config));
 
 connection.connect(function(err) {
   if (err) {
