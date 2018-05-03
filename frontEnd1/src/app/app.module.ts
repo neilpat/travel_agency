@@ -45,6 +45,22 @@ const routes:Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'flights/:id',
+    component: FlightDetailComponent
+  },
+  {
+    path: 'cars/:id',
+    component: CarDetailComponent
+  },
+  {
+    path: 'hotels/:id',
+    component: HotelDetailComponent
+  },
+  {
+    path: 'cruises/:id',
+    component: CruiseDetailComponent
   }
 ];
 
