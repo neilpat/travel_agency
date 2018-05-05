@@ -16,6 +16,7 @@ import { FlightDetailComponent } from './flight-detail/flight-detail.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
 import { CruiseDetailComponent } from './cruise-detail/cruise-detail.component';
 import { HotelDetailComponent } from './hotel-detail/hotel-detail.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes:Routes = [
   {
@@ -45,6 +46,10 @@ const routes:Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent
   },
   {
     path: 'flights/:id',
@@ -78,7 +83,8 @@ const routes:Routes = [
     FlightDetailComponent,
     CarDetailComponent,
     CruiseDetailComponent,
-    HotelDetailComponent
+    HotelDetailComponent,
+    CheckoutComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
