@@ -324,7 +324,7 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
       if (err){
         return next(err);
       }
-      return res.status(200).json({"ok": ok});
+      return res.status(200).json({"ok": "ok"});
     }
   })
   }
