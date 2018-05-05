@@ -11,7 +11,7 @@ var passport = require('passport');
 var cors = require('cors');
 var app = express();
 
-app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var indexRouter = require('./routes/index');
@@ -19,7 +19,7 @@ var usersRouter = require('./routes/users');
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+var { check, validationResult } = require('express-validator/check');
 var connection = mysql.createConnection({
 		host     : 'localhost',
   	user     : 'root',
@@ -306,7 +306,29 @@ app.get('/hotels/:id', (req, res, next) =>{
   });
 });
 
+app.post('/register', [check('username').exists().withMessage('No UserID provided.'), check('password').exists().withMessage('No password provided')], (req, res, next) => {
+  var errors = validationResult(req);
 
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.mapped() });
+  }
+  else{
+    var user = req.body.username;
+    var pass = req.body.password;
+    console.log(user);
+    console.log(pass);    
+    let statement = "INSERT INTO mydb.Users(username, `password`) VALUES (?,?)"; 
+    var reg_return = new Object();
+    connection.query(statement, [user, pass], (err, result) => {
+    {
+      if (err){
+        return next(err);
+      }
+      return res.status(200).json({"ok": ok});
+    }
+  })
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
