@@ -48,19 +48,30 @@
     <!-- <img class = "topImage" src="http://szzljy.com/images/flight/flight1.jpg" alt=""> -->
     <!--<img class = "topImage" src="http://weddings.iberostar.com/Content/images/Hoteles/68/preview.jpg" alt="">-->
     <p></p>
+
     <div class = "cardPadding">
-    <div class="card" *ngFor="let flight of suggestions">
-      <div class="card-header">
+    <div class="center" *ngFor="let flight of suggestions">
+      <div class="card_image">
+        <img class="card-img-top" src="https://androidapkcloud.com/square-photo-without-trimming-apk/" alt="Card image cap">
       </div>
-      <div class="card-body">
-        <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
-        <p class="card-text">{{flight.flight.FlightCarrier}}</p>
-        <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
-        <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
-        <a routerLink = "/flights/{{flight.flight.FlightNumber}}" class="btn btn-primary">View Details</a>
+      <div class="card text_center card_details">
+        <div class="card-body">
+          <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
+          <p class="card-text">{{flight.flight.FlightCarrier}}</p>
+          <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
+          <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
+          <a routerLink = "/flights/{{flight.flight.FlightNumber}}" class="btn btn-primary">View Details</a>
+        </div>
       </div>
-      <div class="card-footer text-muted">
+      <div class="card text_right card_price">
+        <div class="card-body">
+          <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
+          <p class="card-text">{{flight.flight.FlightCarrier}}</p>
+          <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
+          <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
+        </div>
       </div>
+
     </div>
   </div>
     <!-- Optional JavaScript -->

@@ -16,24 +16,79 @@
     <div class="card" *ngFor="let cruise of cruises">
 
       <!-- Card image -->
-      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+      <img class="card-img-top img_format" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
 
       <!-- Card content -->
       <div class="card-body">
 
         <!-- Title -->
-        <h4 class="card-title"><a>Cruise</a></h4>
+
         <!-- Text -->
-        <p class="card-text">Source Location:</p>
-        <p class="card-text">City: {{cruise.sc.CityName}}</p>
-        <p class="card-text">State: {{cruise.sc.State}}</p>
-        <p class="card-text">Country: {{cruise.sc.Country}}</p>
-        <p class="card-text">Destination Location:</p>
-        <p class="card-text">City: {{cruise.dc.CityName}}</p>
-        <p class="card-text">State: {{cruise.dc.State}}</p>
-        <p class="card-text">Country: {{cruise.dc.Country}}</p>
+        <table>
+          <tr>
+            <td colspan="4">
+              <h4 class="card-title center"><a>Cruise</a></h4>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <p class="card-text center">Source Location:</p>
+            </td>
+            <td colspan="2">
+              <p class="card-text center">Destination Location:</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="card-text">City:</p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.sc.CityName}}</p>
+            </td>
+            <td>
+              <p class="card-text">City: </p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.dc.CityName}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="card-text">State: </p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.sc.State}}</p>
+            </td>
+            <td>
+              <p class="card-text">State:</p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.dc.State}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="card-text">Country: </p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.sc.Country}}</p>
+            </td>
+            <td>
+              <p class="card-text">Country:</p>
+            </td>
+            <td>
+              <p class="card-text">{{cruise.dc.Country}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" align="center">
+              <a href="#" class="btn btn-primary center">View Details</a>
+            </td>
+          </tr>
+        </table>
+
         <!-- Button -->
-        <a href="#" class="btn btn-primary">View Details</a>
+
 
       </div>
 
