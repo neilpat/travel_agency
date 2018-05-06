@@ -439,7 +439,7 @@ app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMess
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.mapped() });
   }
-  
+  console.log(userid)
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
