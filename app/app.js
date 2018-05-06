@@ -114,12 +114,20 @@ app.post('/logout', (req, res, next) => {
 
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.status(401).json({"status":"error", "error": "Login information is invalid."}); }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.status(200).json({"status":"OK"});
-    });
+    if(err){
+     return next(err); 
+    }
+    else if(!user){ 
+      return res.status(401).json({"status":"error", "error": "Login information is invalid."});
+    }
+    else{
+      req.logIn(user, function(err) {
+        if (err){ 
+          return next(err); 
+        }
+        return res.status(200).json({"status":"OK"});
+      });
+  }
   })(req, res, next);
 });
 
