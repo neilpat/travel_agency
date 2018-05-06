@@ -108,11 +108,6 @@ function checkAuthentication(req,res,next){
     }
 }
 
-app.post('/logout', (req, res, next) => {
-  req.logout();
-  res.status(200).json({"status":"OK"});
-});
-
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if(err){
@@ -132,6 +127,10 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+app.post('/logout', (req, res, next) => {
+  req.logout();
+  res.status(200).json({"status":"OK"});
+});
 
 
 app.get('/flights', checkAuthentication, (req, res, next) =>{
