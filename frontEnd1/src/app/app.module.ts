@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule} from '@angular/common/http'
+import { HttpClientModule} from '@angular/common/http';
+import { CurrentUserService } from './current-user.service';
 
 import { AppComponent } from './app.component';
 import { FlightComponent } from './flight/flight.component';
@@ -91,7 +92,7 @@ const routes:Routes = [
     HttpClientModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [CurrentUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
