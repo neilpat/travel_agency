@@ -479,8 +479,8 @@ app.get('/profile', (req, res, next) =>{
     });
   });
 
-app.get('/transportation', (req, res, next) =>{
-  var id = req.body.TransportationID;
+app.get('/transportation/:id', (req, res, next) =>{
+  var id = req.params.id;
   let statement = "SELECT * FROM mydb.transportation WHERE mydb.transportation.TransportationID = ?"
   var trans_obj = new Object();
   connection.query(statement, [id], (err, result) => {
@@ -489,8 +489,9 @@ app.get('/transportation', (req, res, next) =>{
     }
     trans_obj = result[0];
     res.send(trans_obj);
-  }
-})
+  });
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
