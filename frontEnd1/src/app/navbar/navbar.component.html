@@ -34,13 +34,14 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <strong>My Account</strong>
+            <strong *ngIf= "isLoggedIn == false">My Account</strong>
+            <strong *ngIf= "isLoggedIn">Hey, {{username}}!</strong>
           </a>
           <div class="dropdown-menu dropdown-menu-right" style="text-align:center;" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" *ngIf= "isLoggedIn == false" routerLink="/register">Sign up</a>
             <a class="dropdown-item" *ngIf= "isLoggedIn == false" routerLink="/login">Sign in</a>
             <a class="dropdown-item" *ngIf= "isLoggedIn" routerLink="/">View Profile</a>
-            <a class="dropdown-item" *ngIf= "isLoggedIn" routerLink="/">Log Out</a>
+            <a class="dropdown-item" *ngIf= "isLoggedIn" (click) = "logOut($event)">Log Out</a>
           </div>
         </li>
       </ul>

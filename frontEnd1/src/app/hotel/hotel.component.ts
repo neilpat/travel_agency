@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from "@angular/router";
+import { CurrentUserService } from '../current-user.service';
 
 @Component({
   selector: 'app-hotel',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HotelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient, private route : ActivatedRoute, private user:CurrentUserService) { }
 
   ngOnInit() {
   }

@@ -35,12 +35,10 @@ export class LoginComponent implements OnInit {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }), withCredentials: true }).subscribe(data => {
-
-      // this.user.setUser(data['User']);
-
       console.log("Login data", data);
-      this.router.navigate(['/dashboard']);
-      this.user.setShowMessage('Login Successful');
+      this.user.setUser(this.username);
+      // console.log("logged in user: " + this.user.getUser())
+      this.router.navigate(['/hotels']);
     }, (err: HttpErrorResponse) => {
       if (err.error instanceof Error) {
 

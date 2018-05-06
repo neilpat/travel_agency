@@ -20,8 +20,8 @@
     <!-- <form class="form-signin"> -->
       <span id="reauth-email" class="reauth-email"></span>
       <input type="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus (keyup) = "enterName($event)">
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required (keyup) = "enterPassword($event)"> 
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required (keyup) = "enterPassword($event)">
+      <button class="btn btn-lg btn-primary btn-block btn-signin" (click) = "login($event)" type="submit">Sign in</button>
     <!-- </form> -->
   </div>
 </div>

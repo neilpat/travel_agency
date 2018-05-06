@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {ActivatedRoute, Router} from "@angular/router";
+import { CurrentUserService } from '../current-user.service';
 
 @Component({
   selector: 'app-flight',
@@ -10,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class FlightComponent implements OnInit {
   suggestions;
 
-  constructor(private httpClient: HttpClient, private route : ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private route : ActivatedRoute, private user:CurrentUserService) { }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/flights')
@@ -20,6 +21,9 @@ export class FlightComponent implements OnInit {
         this.suggestions = data;
       }
     );
+
+
+    console.log("logged in user: " + this.user.getUser())
   }
 
 }

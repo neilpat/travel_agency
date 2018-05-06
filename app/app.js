@@ -100,7 +100,7 @@ passport.deserializeUser(function(user, done) {
 
 function checkAuthentication(req,res,next){
     if(req.isAuthenticated()){
-        console.log("Logged in"); 
+        console.log("Logged in");
         next();
     } else{
         console.log("Not logged in");
@@ -111,15 +111,15 @@ function checkAuthentication(req,res,next){
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if(err){
-     return next(err); 
+     return next(err);
     }
-    else if(!user){ 
+    else if(!user){
       return res.status(401).json({"status":"error", "error": "Login information is invalid."});
     }
     else{
       req.logIn(user, function(err) {
-        if (err){ 
-          return next(err); 
+        if (err){
+          return next(err);
         }
         return res.status(200).json({"status":"OK"});
       });
@@ -405,13 +405,13 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
     console.log(user);
     console.log(pass);
     let smt = "INSERT INTO mydb.`Group`(GroupID, GroupSize) VALUES (0, 1)";
-    connection.query(smt, (err, result) => {   
+    connection.query(smt, (err, result) => {
       if (err){
         return next(err);
       }
     let smt2 = "SELECT * FROM mydb.`Group` WHERE mydb.`Group`.GroupID=(SELECT max(mydb.`Group`.GroupID) FROM mydb.`Group`)"
     connection.query(smt2, (err, result) => {
-      let statement = "INSERT INTO mydb.Users(username, `password`, GroupID) VALUES (?,?,?)"; 
+      let statement = "INSERT INTO mydb.Users(username, `password`, GroupID) VALUES (?,?,?)";
       var reg_return = new Object();
       connection.query(statement, [user, pass, result[0].GroupID], (err, result) => {
         if (err){
@@ -420,23 +420,23 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
         return res.status(200).json({"ok": "ok"});
     });
     });
-    }); 
+    });
   }
 });
 
-app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'), 
+app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'),
   check("CardExpiration").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
   var errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.mapped() });
   }
-  
+
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
   let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = req.user.userid";
-  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)"; 
+  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)";
   connection.query(smt, (err, result) => {
     if (err){
       return next(err);
