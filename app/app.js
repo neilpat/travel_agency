@@ -492,6 +492,31 @@ app.get('/transportation/:id', (req, res, next) =>{
   });
 });
 
+app.get('/group/:id', (req, res, next) =>{
+  var id = req.params.id;
+  let statement = "SELECT * FROM mydb.passenger WHERE mydb.passenger.GroupID = ?"
+  var pass_obj = new Object();
+  connection.query(statement, [id], (err, result) => {
+    if (err){
+      return next(err);
+    }
+    pass_obj = result;
+    res.send(pass_obj);
+  });
+});
+
+app.get('/payment/:id', (req, res, next) =>{
+  var id = req.params.id;
+  let statement = "SELECT * FROM mydb.payment WHERE mydb.payment.GroupID = ?"
+  var payment_obj = new Object();
+  connection.query(statement, [id], (err, result) => {
+    if (err){
+      return next(err);
+    }
+    payment_obj = result[0];
+    res.send(payment_obj);
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
