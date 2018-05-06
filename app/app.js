@@ -15,6 +15,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+var userid;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -80,7 +81,8 @@ passport.use(new LocalStrategy(
       }
       else{
         if(result[0].password === password){
-          return done(null, {userid : username});
+          userid = username;
+          return done(null, true);
         }
         else{
           return done(null, false);
@@ -129,14 +131,20 @@ app.post('/login', function(req, res, next) {
 
 app.post('/logout', (req, res, next) => {
   req.logout();
-  res.status(200).json({"status":"OK"});
+  req.session.destroy((err) => {
+    if (err)
+      res.status(401).json({"status":"ERROR", "error":err});
+    res.clearCookie('connect.sid');
+    userid = null;
+    res.status(200).json({"status":"OK"});
+  });
 });
 
 
 app.get('/flights', checkAuthentication, (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
-  console.log(req.user.userid)
+  console.log(userid)
   connection.query(sql, (err, result) => {
     if(err){
       next(err);
@@ -435,9 +443,9 @@ app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMess
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
-  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = req.user.userid";
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
   let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)"; 
-  connection.query(smt, (err, result) => {
+  connection.query(smt, [userid], (err, result) => {
     if (err){
       return next(err);
     }
