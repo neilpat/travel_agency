@@ -434,7 +434,7 @@ app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMess
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
-  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = req.user.username";
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = req.user.userid";
   let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)"; 
   connection.query(smt, (err, result) => {
     if (err){
