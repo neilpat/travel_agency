@@ -485,6 +485,25 @@ app.post('/deleteuser', (req, res, next) =>{
   });
 });
 
+app.get('/profile', (req, res, next) =>{
+    let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?"
+    let statement = "SELECT * FROM mydb.`group` WHERE mydb.`group`.GroupID = ?"
+    var group_obj = new Object()
+    connection.query(smt, [userid], (err, result) => {
+    if (err){
+      return next(err);
+    }
+      var group = result[0].GroupID;
+      connection.query(statement, [group], (err, result) => {
+        if (err){
+          return next(err);
+        }
+        group_obj = result[0];
+        res.send(group_obj);
+      });
+    });
+  });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
