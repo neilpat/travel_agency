@@ -479,6 +479,19 @@ app.get('/profile', (req, res, next) =>{
     });
   });
 
+app.get('/transportation', (req, res, next) =>{
+  var id = req.body.TransportationID;
+  let statement = "SELECT * FROM mydb.transportation WHERE mydb.transportation.TransportationID = ?"
+  var trans_obj = new Object();
+  connection.query(statement, [id], (err, result) => {
+    if (err){
+      return next(err);
+    }
+    trans_obj = result[0];
+    res.send(trans_obj);
+  }
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
