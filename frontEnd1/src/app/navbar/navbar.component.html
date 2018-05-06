@@ -37,8 +37,10 @@
             <strong>My Account</strong>
           </a>
           <div class="dropdown-menu dropdown-menu-right" style="text-align:center;" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/register">Sign up</a>
-            <a class="dropdown-item" routerLink="/login">Sign in</a>
+            <a class="dropdown-item" *ngIf= "isLoggedIn == false" routerLink="/register">Sign up</a>
+            <a class="dropdown-item" *ngIf= "isLoggedIn == false" routerLink="/login">Sign in</a>
+            <a class="dropdown-item" *ngIf= "isLoggedIn" routerLink="/">View Profile</a>
+            <a class="dropdown-item" *ngIf= "isLoggedIn" routerLink="/">Log Out</a>
           </div>
         </li>
       </ul>
