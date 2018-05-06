@@ -9,6 +9,8 @@ var logger = require('morgan');
 var async = require('async');
 var passport = require('passport');
 var cors = require('cors');
+var LocalStrategy = require('passport-local').Strategy;
+var MySQLStore = require('express-mysql-session')(session);
 var app = express();
 
 app.use(bodyParser.json());
@@ -17,8 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-app.use(passport.initialize());
-app.use(passport.session());
 var { check, validationResult } = require('express-validator/check');
 var connection = mysql.createConnection({
 		host     : 'localhost',
@@ -46,10 +46,89 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
-app.get('/flights', (req, res, next) =>{
+var options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'mydb'
+};
+
+var sessionStore = new MySQLStore(options);
+
+app.use(session({
+  secret: 'sec',
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    let statement = "SELECT * FROM mydb.users WHERE username = ?";
+    connection.query(statement, [username], (err, result) => {
+      console.log(result[0].password)
+      if (err){
+        throw err;
+      }
+      else if(result[0].password.length === 0){
+        return done(null, false);
+      }
+      else{
+        if(result[0].password === password){
+          return done(null, {username : username});
+        }
+        else{
+          return done(null, false);
+        }
+      }
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+function checkAuthentication(req,res,next){
+    if(req.isAuthenticated()){
+        console.log("Logged in"); 
+        next();
+    } else{
+        console.log("Not logged in");
+        res.status(401).json({"status":"error", "error":"Unable to authorize"});
+    }
+}
+
+app.post('/logout', (req, res, next) => {
+  req.logout();
+  res.status(200).json({"status":"OK"});
+});
+
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.status(401).json({"status":"error", "error": "Login information is invalid."}); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.status(200).json({"status":"OK"});
+    });
+  })(req, res, next);
+});
+
+
+
+app.get('/flights', checkAuthentication, (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
-
+  console.log(req.user.username)
   connection.query(sql, (err, result) => {
     if(err){
       next(err);
@@ -89,7 +168,7 @@ app.get('/flights', (req, res, next) =>{
 });
 });
 
-app.get('/flights/:id', (req, res, next) =>{
+app.get('/flights/:id', checkAuthentication, (req, res, next) =>{
   var id = req.params.id;
   var flight_obj = new Object();
   let stmnt = "SELECT * FROM mydb.flight WHERE mydb.flight.FlightNumber = ?";
@@ -119,7 +198,7 @@ app.get('/flights/:id', (req, res, next) =>{
   });
 });
 
-app.get('/cars', (req, res, next) =>{
+app.get('/cars', checkAuthentication, (req, res, next) =>{
 // /cars will have the car rental info
   let sql = 'SELECT * FROM mydb.carrental;';
   var cars = new Array();
@@ -153,7 +232,7 @@ app.get('/cars', (req, res, next) =>{
 });
 });
 
-app.get('/cars/:id', (req, res, next) =>{
+app.get('/cars/:id', checkAuthentication, (req, res, next) =>{
   var id = req.params.id;
   var car_obj = new Object();
   let stmnt = "SELECT * FROM mydb.carrental WHERE mydb.carrental.ConfirmationId = ?";
@@ -176,7 +255,7 @@ app.get('/cars/:id', (req, res, next) =>{
   });
 });
 
-app.get('/cruises', (req, res, next) =>{
+app.get('/cruises', checkAuthentication, (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.cruise;';
   var cruises = new Array();
 
@@ -219,7 +298,7 @@ app.get('/cruises', (req, res, next) =>{
 });
 });
 
-app.get('/cruises/:id', (req, res, next) =>{
+app.get('/cruises/:id', checkAuthentication, (req, res, next) =>{
   var id = req.params.id;
   var cruise_obj = new Object();
   let stmnt = "SELECT * FROM mydb.cruise WHERE mydb.cruise.CruiseNumber = ?";
@@ -250,7 +329,7 @@ app.get('/cruises/:id', (req, res, next) =>{
 });
 
 
-app.get('/hotels', (req, res, next) =>{
+app.get('/hotels', checkAuthentication, (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.accommodation;';
   var hotels = new Array();
 
@@ -283,7 +362,7 @@ app.get('/hotels', (req, res, next) =>{
 });
 });
 
-app.get('/hotels/:id', (req, res, next) =>{
+app.get('/hotels/:id', checkAuthentication, (req, res, next) =>{
   var id = req.params.id;
   var hotel_obj = new Object();
   let stmnt = "SELECT * FROM mydb.accommodation WHERE mydb.accommodation.AccommodationID = ?";
@@ -316,18 +395,38 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
     var user = req.body.username;
     var pass = req.body.password;
     console.log(user);
-    console.log(pass);    
-    let statement = "INSERT INTO mydb.Users(username, `password`) VALUES (?,?)"; 
-    var reg_return = new Object();
-    connection.query(statement, [user, pass], (err, result) => {
-    {
+    console.log(pass);
+    let smt = "INSERT INTO mydb.`Group`(GroupID, GroupSize) VALUES (0, 1)";
+    connection.query(smt, (err, result) => {   
       if (err){
         return next(err);
       }
-      return res.status(200).json({"ok": "ok"});
-    }
-  })
+    let smt2 = "SELECT * FROM mydb.`Group` WHERE mydb.`Group`.GroupID=(SELECT max(mydb.`Group`.GroupID) FROM mydb.`Group`)"
+    connection.query(smt2, (err, result) => {
+      let statement = "INSERT INTO mydb.Users(username, `password`, GroupID) VALUES (?,?,?)"; 
+      var reg_return = new Object();
+      connection.query(statement, [user, pass, result[0].GroupID], (err, result) => {
+        if (err){
+          return next(err);
+        }
+        return res.status(200).json({"ok": "ok"});
+    });
+    });
+    }); 
   }
+});
+
+app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'), 
+  check("CardExpiration").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
+  var errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.mapped() });
+  }
+  var cardNum = req.body.CardNumber;
+  var type = req.body.PaymentType;
+  var expiration = req.body.CardExpiration;
+  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration) VALUES (?,?,?)"; 
+
 });
 
 // view engine setup
