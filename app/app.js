@@ -141,7 +141,7 @@ app.post('/logout', (req, res, next) => {
 });
 
 
-app.get('/flights', checkAuthentication, (req, res, next) =>{
+app.get('/flights', (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
   console.log(userid)
@@ -184,7 +184,7 @@ app.get('/flights', checkAuthentication, (req, res, next) =>{
 });
 });
 
-app.get('/flights/:id', checkAuthentication, (req, res, next) =>{
+app.get('/flights/:id', (req, res, next) =>{
   var id = req.params.id;
   var flight_obj = new Object();
   let stmnt = "SELECT * FROM mydb.flight WHERE mydb.flight.FlightNumber = ?";
@@ -214,7 +214,7 @@ app.get('/flights/:id', checkAuthentication, (req, res, next) =>{
   });
 });
 
-app.get('/cars', checkAuthentication, (req, res, next) =>{
+app.get('/cars', (req, res, next) =>{
 // /cars will have the car rental info
   let sql = 'SELECT * FROM mydb.carrental;';
   var cars = new Array();
@@ -248,7 +248,7 @@ app.get('/cars', checkAuthentication, (req, res, next) =>{
 });
 });
 
-app.get('/cars/:id', checkAuthentication, (req, res, next) =>{
+app.get('/cars/:id', (req, res, next) =>{
   var id = req.params.id;
   var car_obj = new Object();
   let stmnt = "SELECT * FROM mydb.carrental WHERE mydb.carrental.ConfirmationId = ?";
@@ -271,7 +271,7 @@ app.get('/cars/:id', checkAuthentication, (req, res, next) =>{
   });
 });
 
-app.get('/cruises', checkAuthentication, (req, res, next) =>{
+app.get('/cruises', (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.cruise;';
   var cruises = new Array();
 
@@ -314,7 +314,7 @@ app.get('/cruises', checkAuthentication, (req, res, next) =>{
 });
 });
 
-app.get('/cruises/:id', checkAuthentication, (req, res, next) =>{
+app.get('/cruises/:id', (req, res, next) =>{
   var id = req.params.id;
   var cruise_obj = new Object();
   let stmnt = "SELECT * FROM mydb.cruise WHERE mydb.cruise.CruiseNumber = ?";
@@ -345,7 +345,7 @@ app.get('/cruises/:id', checkAuthentication, (req, res, next) =>{
 });
 
 
-app.get('/hotels', checkAuthentication, (req, res, next) =>{
+app.get('/hotels', (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.accommodation;';
   var hotels = new Array();
 
@@ -378,7 +378,7 @@ app.get('/hotels', checkAuthentication, (req, res, next) =>{
 });
 });
 
-app.get('/hotels/:id', checkAuthentication, (req, res, next) =>{
+app.get('/hotels/:id', (req, res, next) =>{
   var id = req.params.id;
   var hotel_obj = new Object();
   let stmnt = "SELECT * FROM mydb.accommodation WHERE mydb.accommodation.AccommodationID = ?";
@@ -433,7 +433,7 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
   }
 });
 
-app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'),
+app.post('/payment', [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'),
   check("CardExpiration").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
   var errors = validationResult(req);
 
