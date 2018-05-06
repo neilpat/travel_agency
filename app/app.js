@@ -46,8 +46,6 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
-
-//passport
 var options = {
     host: 'localhost',
     port: 3306,
@@ -104,27 +102,38 @@ function checkAuthentication(req,res,next){
         console.log("Logged in"); 
         next();
     } else{
-      console.log("Not logged in");
+        console.log("Not logged in");
         res.status(401).json({"status":"error", "error":"Unable to authorize"});
     }
 }
 
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.status(401).json({"status":"error", "error": "Invalid login info"}); }
+    if (err) { 
+      return next(err); 
+    }
+    else if(!user){ 
+      return res.status(401).json({"status":"error", "error": "Invalid login info"}); 
+    }
+    else{
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.status(200).json({"status":"OK"});
+      if(err){ 
+        return next(err); 
+      }
+      else{
+        return res.status(200).json({"status":"OK"});
+      }
     });
+    }
   })(req, res, next);
 });
 
 app.post('/logout', (req, res, next) => {
   req.logout();
   req.session.destroy((err) => {
-    if (err)
-      res.status(401).json({"status":"ERROR", "error":err});
+    if (err){
+      res.status(401).json({"status":"error", "error":"Unable to log out"});
+    }
     res.clearCookie('connect.sid');
     res.status(200).json({"status":"OK"});
   });
