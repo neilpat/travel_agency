@@ -69,21 +69,21 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
   function(username, password, done) {
     let statement = "SELECT * FROM mydb.users WHERE username = ?";
-
     connection.query(statement, [username], (err, result) => {
+      console.log(result[0].password)
       if (err){
         throw err;
       }
-      else if(!result.length === 0){
-        if(result.password === password){
+      else if(result[0].password.length === 0){
+        return done(null, false);
+      }
+      else{
+        if(result[0].password === password){
           return done(null, {username : username});
         }
         else{
           return done(null, false);
         }
-      }
-      else{
-        return done(null, false);
       }
     });
   }
@@ -107,37 +107,22 @@ function checkAuthentication(req,res,next){
     }
 }
 
+app.post('/logout', (req, res, next) => {
+  req.logout();
+  res.status(200).json({"status":"OK"});
+});
+
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { 
-      return next(err); 
-    }
-    else if(!user){ 
-      return res.status(401).json({"status":"error", "error": "Invalid login info"}); 
-    }
-    else{
+    if (err) { return next(err); }
+    if (!user) { return res.status(401).json({"status":"error", "error": "Login information is invalid."}); }
     req.logIn(user, function(err) {
-      if(err){ 
-        return next(err); 
-      }
-      else{
-        return res.status(200).json({"status":"OK"});
-      }
+      if (err) { return next(err); }
+      return res.status(200).json({"status":"OK"});
     });
-    }
   })(req, res, next);
 });
 
-app.post('/logout', (req, res, next) => {
-  req.logout();
-  req.session.destroy((err) => {
-    if (err){
-      res.status(401).json({"status":"error", "error":"Unable to log out"});
-    }
-    res.clearCookie('connect.sid');
-    res.status(200).json({"status":"OK"});
-  });
-});
 
 
 app.get('/flights', checkAuthentication, (req, res, next) =>{
@@ -400,7 +385,7 @@ app.get('/hotels/:id', checkAuthentication, (req, res, next) =>{
   });
 });
 
-app.post('/register', checkAuthentication, [check('username').exists().withMessage('No UserID provided.'), check('password').exists().withMessage('No password provided')], (req, res, next) => {
+app.post('/register', [check('username').exists().withMessage('No UserID provided.'), check('password').exists().withMessage('No password provided')], (req, res, next) => {
   var errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -410,17 +395,24 @@ app.post('/register', checkAuthentication, [check('username').exists().withMessa
     var user = req.body.username;
     var pass = req.body.password;
     console.log(user);
-    console.log(pass);    
-    let statement = "INSERT INTO mydb.Users(username, `password`) VALUES (?,?)"; 
-    var reg_return = new Object();
-    connection.query(statement, [user, pass], (err, result) => {
-    {
+    console.log(pass);
+    let smt = "INSERT INTO mydb.`Group`(GroupID, GroupSize) VALUES (0, 1)";
+    connection.query(smt, (err, result) => {   
       if (err){
         return next(err);
       }
-      return res.status(200).json({"ok": "ok"});
-    }
-  })
+    let smt2 = "SELECT * FROM mydb.`Group` WHERE mydb.`Group`.GroupID=(SELECT max(mydb.`Group`.GroupID) FROM mydb.`Group`)"
+    connection.query(smt2, (err, result) => {
+      let statement = "INSERT INTO mydb.Users(username, `password`, GroupID) VALUES (?,?,?)"; 
+      var reg_return = new Object();
+      connection.query(statement, [user, pass, result[0].GroupID], (err, result) => {
+        if (err){
+          return next(err);
+        }
+        return res.status(200).json({"ok": "ok"});
+    });
+    });
+    }); 
   }
 });
 
