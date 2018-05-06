@@ -410,6 +410,7 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
   else{
     var user = req.body.username;
     var pass = req.body.password;
+    console.log(userid)
     console.log(user);
     console.log(pass);
     let smt = "INSERT INTO mydb.`Group`(GroupID, GroupSize) VALUES (0, 1)";
