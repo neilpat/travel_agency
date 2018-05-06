@@ -46,6 +46,7 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+//GET USERNAME BY: req.user.userid
 var options = {
     host: 'localhost',
     port: 3306,
@@ -79,7 +80,7 @@ passport.use(new LocalStrategy(
       }
       else{
         if(result[0].password === password){
-          return done(null, {username : username});
+          return done(null, {userid : username});
         }
         else{
           return done(null, false);
@@ -136,7 +137,7 @@ app.post('/login', function(req, res, next) {
 app.get('/flights', checkAuthentication, (req, res, next) =>{
   let sql = 'SELECT * FROM mydb.flight;';
   var flights = new Array();
-  console.log(req.user.username)
+  console.log(req.user.userid)
   connection.query(sql, (err, result) => {
     if(err){
       next(err);
@@ -433,8 +434,17 @@ app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMess
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
-  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration) VALUES (?,?,?)"; 
-
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = req.user.username";
+  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)"; 
+  connection.query(smt, (err, result) => {
+    if (err){
+      return next(err);
+    }
+    var group = result[0].GroupID;
+    connection.query(statement, [CardNumber, PaymentType, CardExpiration, group], (err, result) => {
+      return res.status(200).json({"ok": "ok"});
+    });
+  });
 });
 
 // view engine setup
