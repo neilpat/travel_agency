@@ -460,31 +460,6 @@ app.post('/payment', [check('CardNumber').exists().withMessage('No CardNumber pr
   });
 });
 
-app.post('/deleteuser', (req, res, next) =>{
-  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?"
-  let statement = "DELETE FROM mydb.users WHERE mydb.users.username = ?";
-  let statement2 = "DELETE FROM mydb.`Group` WHERE mydb.`group`.GroupID = ?";
-    connection.query(smt, [userid], (err, result) => {
-    if (err){
-      return next(err);
-    }
-    var group = result[0].GroupID;
-    connection.query(statement, [userid], (err, result) => {
-      if (err){
-        return next(err);
-      }
-      console.log("User Deleted");
-    });
-    connection.query(statement2, [group], (err, result) => {
-      if (err){
-        return next(err);
-      }
-      console.log("Group Deleted");
-      return res.status(200).json({"ok": "ok"});
-    });
-  });
-});
-
 app.get('/profile', (req, res, next) =>{
     let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?"
     let statement = "SELECT * FROM mydb.`group` WHERE mydb.`group`.GroupID = ?"
