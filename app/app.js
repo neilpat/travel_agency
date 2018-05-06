@@ -427,9 +427,11 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
 app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'), 
   check("CardExpiration").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
   var errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.mapped() });
   }
+  
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
@@ -440,7 +442,10 @@ app.post('/payment', checkAuthentication, [check('CardNumber').exists().withMess
       return next(err);
     }
     var group = result[0].GroupID;
-    connection.query(statement, [CardNumber, PaymentType, CardExpiration, group], (err, result) => {
+    connection.query(statement, [cardNum, type, expiration, group], (err, result) => {
+      if (err){
+        return next(err);
+      }
       return res.status(200).json({"ok": "ok"});
     });
   });
