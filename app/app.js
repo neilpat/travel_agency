@@ -518,6 +518,53 @@ app.get('/payment/:id', (req, res, next) =>{
   });
 });
 
+app.post('/adduser/:id', (req, res, next) =>{ 
+  var id = req.params.id;
+  let statement = "INSERT into mydb.passenger VALUES (0,?,?,?,?)";
+  if(!req.body[0].FirstName.length == 0){
+     var name = req.body[0].FirstName + " " + req.body[0].LastName;
+     connection.query(statement, [name, req.body[0].Gender, req.body[0].Age, id], (err, result) => {
+      if (err){
+        return next(err);
+      }
+     });
+    }
+     if(!req.body[1].FirstName.length == 0){
+     var name = req.body[1].FirstName + " " + req.body[1].LastName;
+     connection.query(statement, [name, req.body[1].Gender, req.body[1].Age, id], (err, result) => {
+      if (err){
+        return next(err);
+      }
+     });
+   }
+     if(!req.body[2].FirstName.length == 0){
+     var name = req.body[2].FirstName + " " + req.body[2].LastName;
+     connection.query(statement, [name, req.body[2].Gender, req.body[2].Age, id], (err, result) => {
+      if (err){
+        return next(err);
+      }
+     });
+   }
+     if(!req.body[3].FirstName.length == 0){
+     var name = req.body[3].FirstName + " " + req.body[3].LastName;
+     connection.query(statement, [name, req.body[3].Gender, req.body[3].Age, id], (err, result) => {
+      if (err){
+        return next(err);
+      }
+     });
+   }
+     if(!req.body[4].FirstName.length == 0){
+     var name = req.body[4].FirstName + " " + req.body[4].LastName;
+     connection.query(statement, [name, req.body[4].Gender, req.body[4].Age, id], (err, result) => {
+      if (err){
+        return next(err);
+      }
+     });
+  }
+  
+  return res.status(200).json({"ok": "ok"});
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
