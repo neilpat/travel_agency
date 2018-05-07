@@ -18,6 +18,7 @@ import { CarDetailComponent } from './car-detail/car-detail.component';
 import { CruiseDetailComponent } from './cruise-detail/cruise-detail.component';
 import { HotelDetailComponent } from './hotel-detail/hotel-detail.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes:Routes = [
   {
@@ -67,6 +68,10 @@ const routes:Routes = [
   {
     path: 'cruises/:id',
     component: CruiseDetailComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   }
 ];
 
@@ -85,7 +90,8 @@ const routes:Routes = [
     CarDetailComponent,
     CruiseDetailComponent,
     HotelDetailComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

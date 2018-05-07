@@ -17,21 +17,21 @@ export class NavbarComponent implements OnInit {
     if(this.user.getUser() != ""){
       this.isLoggedIn = true;
       this.username = this.user.getUser();
+    }else{
+      this.isLoggedIn = false;
     }
   }
 
   logOut(e){
-    this.httpClient.post('http://localhost:3000/logout').subscribe(data => {
+    this.httpClient.post('http://localhost:3000/logout', {}, { headers :
+    new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }), withCredentials: true }).subscribe(data => {
       console.log("Logout", data);
       this.user.setUser("");
       this.isLoggedIn = false;
       this.router.navigate(['/']);
-    }, (err: HttpErrorResponse) => {
-      if (err.error instanceof Error) {
-
-      } else {
-
-      }
     });
   }
 
