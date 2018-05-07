@@ -42,9 +42,11 @@ export class ProfileComponent implements OnInit {
 
         if(transportationID != null){
           this.httpClient.get('http://localhost:3000/transportation/' + transportationID)
-          .subscribe(data => {
+          .subscribe((data : any) => {
+            console.log(data);
             this.transportType = data.TransportationType;
-            console.log("type: " + this.transportType);
+            console.log("type: ");
+            console.log(this.transportType);
 
             if(this.transportType == "flight"){
 

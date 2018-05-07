@@ -387,7 +387,7 @@ app.get('/hotels/:id', (req, res, next) =>{
       next(err);
     }
     else{
-      hotel_obj.car = result[0];
+      hotel_obj.hotel = result[0];
 
         let stmnt = "SELECT * FROM mydb.Location WHERE mydb.Location.LocationID = ?";
         connection.query(stmnt, [result[0].Location] , (err2, result2) => {
