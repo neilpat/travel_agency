@@ -524,9 +524,12 @@ app.get('/payment/:id', (req, res, next) =>{
 });
 //Adds passengers into the group
 //PARAMETER: GroupID
-app.post('/adduser/:id', (req, res, next) =>{ 
-  var id = req.params.id;
+app.post('/adduser', (req, res, next) =>{ 
   let statement = "INSERT into mydb.passenger VALUES (0,?,?,?,?)";
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
+  connection.query(smt, [userid], (err, result) => {
+  var id = result[0].GroupID;
+  console.log(id)
   if(!req.body[0].FirstName.length == 0){
      var name = req.body[0].FirstName + " " + req.body[0].LastName;
      connection.query(statement, [name, req.body[0].Gender, req.body[0].Age, id], (err, result) => {
@@ -567,6 +570,7 @@ app.post('/adduser/:id', (req, res, next) =>{
       }
      });
   }
+  });
   
   return res.status(200).json({"ok": "ok"});
 });
