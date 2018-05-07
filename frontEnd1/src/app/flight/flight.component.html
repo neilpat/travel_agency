@@ -52,7 +52,7 @@
     <div class = "cardPadding">
     <div class="center" *ngFor="let flight of suggestions">
       <div class="card_image">
-        <img class="card-img-top" src="https://androidapkcloud.com/square-photo-without-trimming-apk/" alt="Card image cap">
+        <img class="card-img-top" src={{flight.flight.imageLink}} alt="Card image cap">
       </div>
       <div class="card text_center card_details">
         <div class="card-body">

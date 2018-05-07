@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { CurrentUserService } from './current-user.service';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { FlightComponent } from './flight/flight.component';
@@ -50,7 +51,7 @@ const routes:Routes = [
     component: RegisterComponent
   },
   {
-    path: 'checkout',
+    path: 'checkout/:id',
     component: CheckoutComponent
   },
   {
@@ -96,7 +97,8 @@ const routes:Routes = [
   imports: [
     RouterModule.forRoot(routes),
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [CurrentUserService],
   bootstrap: [AppComponent]

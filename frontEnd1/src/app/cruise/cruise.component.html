@@ -16,7 +16,7 @@
     <div class="card" *ngFor="let cruise of cruises">
 
       <!-- Card image -->
-      <img class="card-img-top img_format" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+      <img class="card-img-top img_format" src={{cruise.boat.imageLink}} alt="Card image cap">
 
       <!-- Card content -->
       <div class="card-body">
@@ -82,7 +82,7 @@
           </tr>
           <tr>
             <td colspan="4" align="center">
-              <a href="#" class="btn btn-primary center">View Details</a>
+              <a routerLink = "/cruises/{{cruise.boat.CruiseNumber}}" class="btn btn-primary center">View Details</a>
             </td>
           </tr>
         </table>

@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
       console.log("Logout", data);
       this.user.setUser("");
       this.isLoggedIn = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/flights']);
     });
   }
 
