@@ -565,6 +565,48 @@ app.post('/adduser/:id', (req, res, next) =>{
   return res.status(200).json({"ok": "ok"});
 });
 
+app.post('/updateTransportation', (req, res, next) =>{
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
+  let smt2 = "UPDATE mydb.`group` SET mydb.`group`.TransportationID = ? WHERE mydb.`group`.GroupID = ?";
+  var tid = req.body.TransportationID;
+  console.log(tid)
+  console.log(userid)
+   connection.query(smt, [userid], (err, result) => {
+    if (err){
+      return next(err);
+    }
+    var group = result[0].GroupID;
+     console.log(group)
+    connection.query(smt2, [tid, group], (err, result) => {
+      if (err){
+        return next(err);
+      }
+      return res.status(200).json({"ok": "ok"});
+    });
+  });
+});
+
+app.post('/updateAccommodation', (req, res, next) =>{
+  let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
+  let smt2 = "UPDATE mydb.`group` SET mydb.`group`.AccommodationID = ? WHERE mydb.`group`.GroupID = ?";
+  var aid = req.body.AccommodationID;
+  console.log(aid)
+  console.log(userid)
+   connection.query(smt, [userid], (err, result) => {
+    if (err){
+      return next(err);
+    }
+    var group = result[0].GroupID;
+    console.log(group)
+    connection.query(smt2, [aid, group], (err, result) => {
+      if (err){
+        return next(err);
+      }
+      return res.status(200).json({"ok": "ok"});
+    });
+  });
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
