@@ -478,7 +478,8 @@ app.get('/profile', (req, res, next) =>{
       });
     });
   });
-
+//Gets transportation information
+//PARAMETER: TransportationID
 app.get('/transportation/:id', (req, res, next) =>{
   var id = req.params.id;
   let statement = "SELECT * FROM mydb.transportation WHERE mydb.transportation.TransportationID = ?"
@@ -491,7 +492,8 @@ app.get('/transportation/:id', (req, res, next) =>{
     res.send(trans_obj);
   });
 });
-
+//Gets passengers from GroupID
+//PARAMETER: GroupID
 app.get('/group/:id', (req, res, next) =>{
   var id = req.params.id;
   let statement = "SELECT * FROM mydb.passenger WHERE mydb.passenger.GroupID = ?"
@@ -505,6 +507,8 @@ app.get('/group/:id', (req, res, next) =>{
   });
 });
 
+//Gets payment from GroupID
+//PARAMETER: GroupID
 app.get('/payment/:id', (req, res, next) =>{
   var id = req.params.id;
   let statement = "SELECT * FROM mydb.payment WHERE mydb.payment.GroupID = ?"
@@ -517,7 +521,8 @@ app.get('/payment/:id', (req, res, next) =>{
     res.send(payment_obj);
   });
 });
-
+//Adds passengers into the group
+//PARAMETER: GroupID
 app.post('/adduser/:id', (req, res, next) =>{ 
   var id = req.params.id;
   let statement = "INSERT into mydb.passenger VALUES (0,?,?,?,?)";
@@ -564,7 +569,8 @@ app.post('/adduser/:id', (req, res, next) =>{
   
   return res.status(200).json({"ok": "ok"});
 });
-
+//Updates Transportation in group
+//NO PARAMETER
 app.post('/updateTransportation', (req, res, next) =>{
   let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
   let smt2 = "UPDATE mydb.`group` SET mydb.`group`.TransportationID = ? WHERE mydb.`group`.GroupID = ?";
@@ -585,7 +591,8 @@ app.post('/updateTransportation', (req, res, next) =>{
     });
   });
 });
-
+//Updates Accommodation in group
+//NO PARAMETER
 app.post('/updateAccommodation', (req, res, next) =>{
   let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
   let smt2 = "UPDATE mydb.`group` SET mydb.`group`.AccommodationID = ? WHERE mydb.`group`.GroupID = ?";
