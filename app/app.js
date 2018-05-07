@@ -434,7 +434,7 @@ app.post('/register', [check('username').exists().withMessage('No UserID provide
 });
 
 app.post('/payment', [check('CardNumber').exists().withMessage('No CardNumber provided.'), check("PaymentType").exists().withMessage('No PaymentType provided'),
-  check("CardExpiration").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
+  check("CardExpiration").exists().withMessage('No CardExpiration provided'), check("Ccv").exists().withMessage('No CardExpiration provided')], (req, res, next) => {
   var errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -444,14 +444,15 @@ app.post('/payment', [check('CardNumber').exists().withMessage('No CardNumber pr
   var cardNum = req.body.CardNumber;
   var type = req.body.PaymentType;
   var expiration = req.body.CardExpiration;
+  var ccv = req.body.Ccv;
   let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
-  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID) VALUES (?,?,?,?)";
+  let statement = "INSERT INTO mydb.Payment(CardNumber, PaymentType, CardExpiration, GroupID, Ccv) VALUES (?,?,?,?,?)";
   connection.query(smt, [userid], (err, result) => {
     if (err){
       return next(err);
     }
     var group = result[0].GroupID;
-    connection.query(statement, [cardNum, type, expiration, group], (err, result) => {
+    connection.query(statement, [cardNum, type, expiration, group, ccv], (err, result) => {
       if (err){
         return next(err);
       }
