@@ -13,21 +13,27 @@
 <body>
 <app-navbar></app-navbar>
 
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
 <p></p>
-
+<div class="head_div">
   <h3 class="display-3">Welcome, {{username}}!</h3>
   <p>This is a summary of all your upcoming bookings through our website. We appreciate your business.</p>
+</div>
 
     <table class="table table-hover">
       <tr data-toggle="collapse" data-target="#flight_details" class="table_head" *ngIf= "isFlight">
-        <td colspan="8">
+        <td colspan="4">
           <h3>FLIGHTS</h3>
         </td>
       </tr>
-
-
       <div id="flight_details" class="collapse" *ngIf= "isFlight">
-
+        <table class="full">
       <tr class = "full">
         <td>
           Flight Carrier
@@ -53,117 +59,110 @@
           {{flight.flight.endDate}}
         </td>
         <td>
-          {{flight.flight.Fare}}
+          ${{flight.flight.Fare}}
         </td>
       </tr>
-
+    </table>
       </div>
-
       <tr data-toggle="collapse" data-target="#hotel_details" class="table_head">
-        <td colspan="8">
+        <td colspan="4">
           <h3 >HOTELS</h3>
         </td>
       </tr>
-
       <div id="hotel_details" class="collapse">
-
-      <tr class = "full">
-        <td>
-          Type
-        </td>
-        <td>
-          Check-In Date
-        </td>
-        <td>
-          Check-Out Date
-        </td>
-      </tr>
-      <tr class = "full">
-        <td>
-          Type
-        </td>
-        <td>
-          Check-In Date
-        </td>
-        <td>
-          Check-Out Date
-        </td>
-      </tr>
-
+        <table class="full">
+          <tr class = "full">
+            <td>
+              Type
+            </td>
+            <td>
+              Check-In Date
+            </td>
+            <td>
+              Check-Out Date
+            </td>
+          </tr>
+          <tr class = "full">
+            <td>
+              Type
+            </td>
+            <td>
+              Check-In Date
+            </td>
+            <td>
+              Check-Out Date
+            </td>
+          </tr>
+        </table>
       </div>
       <tr data-toggle="collapse" data-target="#car_details" class="table_head" *ngIf= "isCar">
-        <td colspan="8">
+        <td colspan="4">
           <h3 >CARS</h3>
         </td>
       </tr>
-
       <div id="car_details" class="collapse" *ngIf= "isCar">
-        <tr>
-          <td>
-            Car Type
-          </td>
-          <td>
-            Pick Up Date
-          </td>
-          <td>
-            Drop Off Date
-          </td>
-          <td>
-            Rent
-          </td>
-        </tr>
-        <tr class = "full">
-          <td>
-            {{car.CarType}}
-          </td>
-          <td>
-            {{car.startDate}}
-          </td>
-          <td>
-            {{car.endDate}}
-          </td>
-          <td>
-            {{car.Rent}}
-          </td>
-        </tr>
+        <table class="full">
+          <tr>
+            <td>
+              Car Type
+            </td>
+            <td>
+              Pick Up Date
+            </td>
+            <td>
+              Drop Off Date
+            </td>
+            <td>
+              Rent
+            </td>
+          </tr>
+          <tr class = "full">
+            <td>
+              {{car.car.CarType}}
+            </td>
+            <td>
+              {{car.car.startDate}}
+            </td>
+            <td>
+              {{car.car.endDate}}
+            </td>
+            <td>
+              {{car.car.Rent}}
+            </td>
+          </tr>
+        </table>
       </div>
-
       <tr data-toggle="collapse" data-target="#cruise_details" class="table_head" *ngIf= "isCruise">
-        <td colspan="8">
+        <td colspan="4">
           <h3 >CRUISES</h3>
         </td>
       </tr>
-
       <div id="cruise_details" class="collapse" *ngIf= "isCruise">
-        <tr>
-          <td>
-            Start Date
-          </td>
-          <td>
-            End Date
-          </td>
-          <td>
-            Price
-          </td>
-          <td>
-            Rent
-          </td>
-        </tr>
-        <tr class = "full">
-          <td>
-            {{cruise.startDate}}
-          </td>
-          <td>
-            {{cruise.endDate}}
-          </td>
-          <td>
-            {{cruise.Fare}}
-          </td>
-        </tr>
+        <table class="full">
+          <tr>
+            <td>
+              Start Date
+            </td>
+            <td>
+              End Date
+            </td>
+            <td>
+              Price
+            </td>
+          </tr>
+          <tr class = "full">
+            <td>
+              {{cruise.boat.startDate}}
+            </td>
+            <td>
+              {{cruise.boat.endDate}}
+            </td>
+            <td>
+              ${{cruise.boat.Fare}}
+            </td>
+          </tr>
+        </table>
       </div>
-
-
-
       <tr id="cruise_details" class="collapse">
         <td colspan="2">
           Departing From - Arriving At
@@ -177,70 +176,74 @@
           <h3 >PASSENGERS</h3>
         </td>
       </tr>
-
       <div id="passenger_details" class="collapse">
-      <tr>
-          <td colspan="2">
-            Name
-          </td>
-          <td colspan="2">
-            Age
-          </td>
-          <td colspan="2">
-            Gender
-          </td>
-      </tr>
-      <tr *ngFor="let p of passengers">
-          <td colspan="2">
-            {{p.PassengerName}}
-          </td>
-          <td colspan="2">
-            {{p.Age}}
-          </td>
-          <td colspan="2">
-            {{p.Gender}}
-          </td>
-      </tr>
-
+        <table class="full">
+          <tr>
+            <td colspan="2">
+              Name
+            </td>
+            <td colspan="2">
+              Age
+            </td>
+            <td colspan="2">
+              Gender
+            </td>
+          </tr>
+          <tr *ngFor="let p of passengers">
+            <td colspan="2">
+              {{p.PassengerName}}
+            </td>
+            <td colspan="2">
+              {{p.Age}}
+            </td>
+            <td colspan="2">
+              {{p.Gender}}
+            </td>
+          </tr>
+        </table>
       </div>
       <tr data-toggle="collapse" data-target="#payment_details" class="table_head">
         <td colspan="8">
           <h3 >PAYMENT</h3>
         </td>
       </tr>
-
       <div  id="payment_details" class="collapse">
-      <tr>
-          <td colspan="2">
-            Type
-          </td>
-          <td colspan="2">
-            Card Number
-          </td>
-          <td colspan="2">
-            Expiration
-          </td>
-          <td colspan="2">
-            CCV
-          </td>
-      </tr>
-      <tr *ngIf= "paymentFound">
-        <td colspan="2">
-          {{payment.PaymentType}}
-        </td>
-        <td colspan="2">
-          {{payment.CardNumber}}
-        </td>
-        <td colspan="2">
-          {{payment.CardExpiration}}
-        </td>
-        <td colspan="2">
-          {{payment.Ccv}}
-        </td>
-      </tr>
-
+        <table class="full">
+          <tr>
+            <td colspan="2">
+              Type
+            </td>
+            <td colspan="2">
+              Card Number
+            </td>
+            <td colspan="2">
+              Expiration
+            </td>
+            <td colspan="2">
+              CCV
+            </td>
+          </tr>
+          <tr *ngIf= "paymentFound">
+            <td colspan="2">
+              {{payment.PaymentType}}
+            </td>
+            <td colspan="2">
+              {{payment.CardNumber}}
+            </td>
+            <td colspan="2">
+              {{payment.CardExpiration}}
+            </td>
+            <td colspan="2">
+              {{payment.Ccv}}
+            </td>
+          </tr>
+        </table>
       </div>
     </table>
+
+    <div style="height: 300px; background-color: whitesmoke">
+
+    </div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

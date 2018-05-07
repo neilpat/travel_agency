@@ -1,7 +1,7 @@
 body{
   font: normal 18px sans-serif;
   color: #333;
-  background-color: #eee;
+  background-color: whitesmoke;
 }
 
 .full{
@@ -21,7 +21,7 @@ body{
 }
 table{
   margin: auto;
-  width: 100%;
+  width: 80%;
   padding: 10px 10px 10px 10px;
   background-color: white;
 }
@@ -56,6 +56,12 @@ td{
   background-color: #e3f2fd;
 }
 .format_table{
+  margin: auto;
+  width: 90%;
+  padding: 10px 10px 10px 10px;
+  background-color: whitesmoke;
+}
+.head_div{
   margin: auto;
   width: 90%;
   padding: 10px 10px 10px 10px;

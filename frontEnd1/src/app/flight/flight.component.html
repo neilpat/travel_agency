@@ -56,22 +56,19 @@
       </div>
       <div class="card text_center card_details">
         <div class="card-body">
-          <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
-          <p class="card-text">{{flight.flight.FlightCarrier}}</p>
-          <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
-          <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
+          <!-- <h5 class="card-title">{{flight.flight.FlightNumber}}</h5> -->
+          <p class="card-text"><strong>Carrier</strong> : {{flight.flight.FlightCarrier}}</p>
+          <p class="card-text"><strong>Departure</strong> : {{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
+          <p class="card-text"><strong>Arrival</strong> : {{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
           <a routerLink = "/flights/{{flight.flight.FlightNumber}}" class="btn btn-primary">View Details</a>
         </div>
       </div>
       <div class="card text_right card_price">
-        <div class="card-body">
-          <h5 class="card-title">{{flight.flight.FlightNumber}}</h5>
-          <p class="card-text">{{flight.flight.FlightCarrier}}</p>
-          <p class="card-text">{{flight.sc.CityName}}, {{flight.sc.State}}, {{flight.sc.Country}}</p>
-          <p class="card-text">{{flight.dc.CityName}}, {{flight.dc.State}}, {{flight.dc.Country}}</p>
+        <div class="card-body" style = "margin-left : 25%">
+          <h1 class="card-title">Price</h1>
+          <p class="card-text" style = "font-size: 40px">${{flight.flight.Fare}}.99</p>
         </div>
       </div>
-
     </div>
   </div>
     <!-- Optional JavaScript -->
