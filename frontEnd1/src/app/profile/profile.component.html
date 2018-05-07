@@ -15,23 +15,50 @@
 
 <p></p>
 
-  <h1 class="display-3">Hello, world!</h1>
+  <h3 class="display-3">Welcome, {{username}}!</h3>
   <p>This is a summary of all your upcoming bookings through our website. We appreciate your business.</p>
 
     <table class="table table-hover">
-      <tr data-toggle="collapse" data-target="#flight_details" class="table_head">
+      <tr data-toggle="collapse" data-target="#flight_details" class="table_head" *ngIf= "isFlight">
         <td colspan="8">
           <h3>FLIGHTS</h3>
         </td>
       </tr>
-      <tr colspan="2" id="flight_details" class="collapse">
+
+
+      <div id="flight_details" class="collapse" *ngIf= "isFlight">
+
+      <tr class = "full">
         <td>
-          Departing From - Arriving At
+          Flight Carrier
         </td>
-        <td colspan="2">
-          Departing Date - Arriving Date
+        <td>
+          Leaving From Home Date
+        </td>
+        <td>
+          Leaving From Vacation Date
+        </td>
+        <td>
+          Price
         </td>
       </tr>
+      <tr class = "full">
+        <td>
+          {{flight.flight.FlightCarrier}}
+        </td>
+        <td>
+          {{flight.flight.startDate}}
+        </td>
+        <td>
+          {{flight.flight.endDate}}
+        </td>
+        <td>
+          {{flight.flight.Fare}}
+        </td>
+      </tr>
+
+      </div>
+
       <tr data-toggle="collapse" data-target="#hotel_details" class="table_head">
         <td colspan="8">
           <h3 >HOTELS</h3>
@@ -41,47 +68,102 @@
       <div id="hotel_details" class="collapse">
 
       <tr class = "full">
-        <td colspan="2">
-          Check-In Date - Check-Out Date
+        <td>
+          Type
         </td>
-        <td colspan="2">
-          X Days, Y Nights
+        <td>
+          Check-In Date
+        </td>
+        <td>
+          Check-Out Date
         </td>
       </tr>
       <tr class = "full">
-        <td colspan="2">
-          Check-In Date - Check-Out Date
+        <td>
+          Type
         </td>
-        <td colspan="2">
-          hELLO WORLD
+        <td>
+          Check-In Date
+        </td>
+        <td>
+          Check-Out Date
         </td>
       </tr>
-      
+
       </div>
-      <tr data-toggle="collapse" data-target="#car_details" class="table_head">
+      <tr data-toggle="collapse" data-target="#car_details" class="table_head" *ngIf= "isCar">
         <td colspan="8">
           <h3 >CARS</h3>
         </td>
       </tr>
-      <tr id="car_details" class="collapse">
-        <td>
-          Car Make/Model/Year
-        </td>
-        <td>
-          Pick Up Date
-        </td>
-        <td>
-          Drop Off Date
-        </td>
-        <td>
-          Office Location
-        </td>
-      </tr>
-      <tr data-toggle="collapse" data-target="#cruise_details" class="table_head">
+
+      <div id="car_details" class="collapse" *ngIf= "isCar">
+        <tr>
+          <td>
+            Car Type
+          </td>
+          <td>
+            Pick Up Date
+          </td>
+          <td>
+            Drop Off Date
+          </td>
+          <td>
+            Rent
+          </td>
+        </tr>
+        <tr class = "full">
+          <td>
+            {{car.CarType}}
+          </td>
+          <td>
+            {{car.startDate}}
+          </td>
+          <td>
+            {{car.endDate}}
+          </td>
+          <td>
+            {{car.Rent}}
+          </td>
+        </tr>
+      </div>
+
+      <tr data-toggle="collapse" data-target="#cruise_details" class="table_head" *ngIf= "isCruise">
         <td colspan="8">
           <h3 >CRUISES</h3>
         </td>
       </tr>
+
+      <div id="cruise_details" class="collapse" *ngIf= "isCruise">
+        <tr>
+          <td>
+            Start Date
+          </td>
+          <td>
+            End Date
+          </td>
+          <td>
+            Price
+          </td>
+          <td>
+            Rent
+          </td>
+        </tr>
+        <tr class = "full">
+          <td>
+            {{cruise.startDate}}
+          </td>
+          <td>
+            {{cruise.endDate}}
+          </td>
+          <td>
+            {{cruise.Fare}}
+          </td>
+        </tr>
+      </div>
+
+
+
       <tr id="cruise_details" class="collapse">
         <td colspan="2">
           Departing From - Arriving At
@@ -95,36 +177,69 @@
           <h3 >PASSENGERS</h3>
         </td>
       </tr>
-      <tr id="passenger_details" class="collapse">
-        <td colspan="2">
-          First Name
-        </td>
-        <td colspan="2">
-          Last Name
-        </td>
-        <td colspan="2">
-          Age
-        </td>
-        <td colspan="2">
-          Gender
-        </td>
+
+      <div id="passenger_details" class="collapse">
+      <tr>
+          <td colspan="2">
+            Name
+          </td>
+          <td colspan="2">
+            Age
+          </td>
+          <td colspan="2">
+            Gender
+          </td>
       </tr>
+      <tr *ngFor="let p of passengers">
+          <td colspan="2">
+            {{p.PassengerName}}
+          </td>
+          <td colspan="2">
+            {{p.Age}}
+          </td>
+          <td colspan="2">
+            {{p.Gender}}
+          </td>
+      </tr>
+
+      </div>
       <tr data-toggle="collapse" data-target="#payment_details" class="table_head">
         <td colspan="8">
           <h3 >PAYMENT</h3>
         </td>
       </tr>
-      <tr id="payment_details" class="collapse">
+
+      <div  id="payment_details" class="collapse">
+      <tr>
+          <td colspan="2">
+            Type
+          </td>
+          <td colspan="2">
+            Card Number
+          </td>
+          <td colspan="2">
+            Expiration
+          </td>
+          <td colspan="2">
+            CCV
+          </td>
+      </tr>
+      <tr *ngIf= "paymentFound">
         <td colspan="2">
-          Card Type
+          {{payment.PaymentType}}
         </td>
         <td colspan="2">
-          Card Number
+          {{payment.CardNumber}}
         </td>
         <td colspan="2">
-          Card Expiration
+          {{payment.CardExpiration}}
+        </td>
+        <td colspan="2">
+          {{payment.Ccv}}
         </td>
       </tr>
+
+      </div>
     </table>
 
 <!-- Optional JavaScript -->

@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   isCar = false;
   isCruise = false;
   containsPassengers = false;
+  paymentFound = false;
   profile;
   flight;
   car;
@@ -107,6 +108,11 @@ export class ProfileComponent implements OnInit {
           this.payment = data;
           console.log("payment:");
           console.log(this.payment);
+          if(this.payment != null){
+            this.paymentFound = true;
+          }else{
+            this.paymentFound = false;
+          }
         }, (err: HttpErrorResponse) => {
           console.log("payment erorr");
           if (err.error instanceof Error) {
