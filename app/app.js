@@ -529,7 +529,7 @@ app.post('/adduser', (req, res, next) =>{
   let smt = "SELECT * FROM mydb.users WHERE mydb.users.username = ?";
   connection.query(smt, [userid], (err, result) => {
   var id = result[0].GroupID;
-  console.log(id)
+  console.log(req.body)
   if(!req.body[0].FirstName.length == 0){
      var name = req.body[0].FirstName + " " + req.body[0].LastName;
      connection.query(statement, [name, req.body[0].Gender, req.body[0].Age, id], (err, result) => {
