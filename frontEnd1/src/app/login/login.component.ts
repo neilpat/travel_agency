@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       console.log("Login data", data);
       this.user.setUser(this.username);
       // console.log("logged in user: " + this.user.getUser())
-      this.router.navigate(['/']);
+      this.router.navigate(['/flights']);
     }, (err: HttpErrorResponse) => {
       if (err.error instanceof Error) {
 

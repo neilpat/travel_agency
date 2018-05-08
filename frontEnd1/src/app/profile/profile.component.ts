@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   isFlight = false;
   isCar = false;
   isCruise = false;
+  hotelFound = false;
   containsPassengers = false;
   paymentFound = false;
   profile;
@@ -98,6 +99,11 @@ export class ProfileComponent implements OnInit {
             this.hotel = data;
             console.log("hotel:");
             console.log(this.hotel);
+            if(this.hotel != null){
+              this.hotelFound = true;
+            }else{
+              this.hotelFound = false;
+            }
           });
         }else{
           this.hotel = null;

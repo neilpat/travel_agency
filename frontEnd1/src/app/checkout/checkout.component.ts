@@ -90,7 +90,8 @@ export class CheckoutComponent implements OnInit {
             'Accept': 'application/json'
           }), withCredentials: true }).subscribe(data => {
             console.log("transportation added", data);
-            this.router.navigate(['/']);
+            // this.router.navigate(['/']);
+            this.router.navigate(['/hotels']);
           }, (err: HttpErrorResponse) => {
             if (err.error instanceof Error) {
 

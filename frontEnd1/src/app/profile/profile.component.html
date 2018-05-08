@@ -64,12 +64,12 @@
       </tr>
     </table>
       </div>
-      <tr data-toggle="collapse" data-target="#hotel_details" class="table_head">
+      <tr data-toggle="collapse" data-target="#hotel_details" class="table_head" *ngIf= "hotelFound">
         <td colspan="4">
           <h3 >HOTELS</h3>
         </td>
       </tr>
-      <div id="hotel_details" class="collapse">
+      <div id="hotel_details" class="collapse" *ngIf= "hotelFound">
         <table class="full">
           <tr class = "full">
             <td>
@@ -81,16 +81,22 @@
             <td>
               Check-Out Date
             </td>
+            <td>
+              Location
+            </td>
           </tr>
           <tr class = "full">
             <td>
-              Type
+              {{hotel.hotel.Type}}
             </td>
             <td>
-              Check-In Date
+              {{hotel.hotel.startDate}}
             </td>
             <td>
-              Check-Out Date
+              {{hotel.hotel.endDate}}
+            </td>
+            <td>
+              {{hotel.loc.CityName}}, {{hotel.loc.State}}, {{hotel.loc.Country}}
             </td>
           </tr>
         </table>
